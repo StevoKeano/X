@@ -16,8 +16,8 @@ def clear_screen():
     time.sleep(0.1)  # Small delay to ensure terminal refreshes
 
 # Replace with your X API credentials (kept for reference, though not used here)
-consumer_key = 'H0KGcwlRnHfWDhPrFmEXOEjRI'
-consumer_secret = '8Ho6tub7rssfYzYKUoZdpCh26dCjKn7IFTnqfd7M8REST7eTpy'
+consumer_key = '336H0KGcwlRnHfWDhPrFmEXOEjRI'
+consumer_secret = '1958Ho6tub7rssfYzYKUoZdpCh26dCjKn7IFTnqfd7M8REST7eTpy'
 access_token = '1813999087709986817-IXAIPEoRoRUjkYEKEnOKTV3nottoyw'
 access_token_secret = 'k5xcdJSvkh3bPSDxAf7E5RcL06ZCx0kyB9aP99qVFa1NC'
 
