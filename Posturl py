@@ -1,9 +1,17 @@
 import tweepy
 import time
 import os
+import pyshorteners
 
-# Get URL from user at the start
-link = input("Please enter the URL: ").strip()
+# Function to shorten URL using pyshorteners
+def shorten_url(long_url):
+    try:
+        s = pyshorteners.Shortener()
+        short_url = s.tinyurl.short(long_url)
+        return short_url
+    except Exception as e:
+        print(f"Failed to shorten URL: {e}")
+        return long_url  # Fallback to original URL if shortening fails
 
 # Function to clear the terminal screen with error handling
 def clear_screen():
@@ -18,10 +26,17 @@ def clear_screen():
         print(f"Failed to clear screen: {e}")
     time.sleep(0.1)  # Small delay to ensure terminal refreshes
 
+# Get URL from user and shorten it
+long_url = input("Please enter the URL: ").strip()
+link = shorten_url(long_url)
+print(f"Shortened URL: {link}")
+time.sleep(1)  # Brief pause to let user see the shortened URL
+clear_screen()  # Clear screen after displaying shortened URL
+
 # Replace with your X API credentials (kept for reference, though not used here)
-consumer_key = '3365H0KGcwlRnHfWDhPrFmEXOEjRI'
-consumer_secret = '1958Ho6tub7rssfYzYKUoZdpCh26dCjKn7IFTnqfd7M8REST7eTpy'
-access_token = '1813713999087709986817-IXAIPEoRoRUjkYEKEnOKTV3nottoyw'
+consumer_key = 'H0KGcwlRnHfWDhPrFmEXOEjRI'
+consumer_secret = '8Ho6tub7rssfYzYKUoZdpCh26dCjKn7IFTnqfd7M8REST7eTpy'
+access_token = '1813999087709986817-IXAIPEoRoRUjkYEKEnOKTV3nottoyw'
 access_token_secret = 'k5xcdJSvkh3bPSDxAf7E5RcL06ZCx0kyB9aP99qVFa1NC'
 
 # Authenticate with X API (for reference)
@@ -30,7 +45,10 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 # Complete list of handles
-handles = [
+cabinet = [
+    'HowardLutnick', 'RussVought', 'MikeWaltz47', 'SecRubio', 'SecKennedy', 'EPALeeZeldin', 'SecDuffy', 'SecRollins', 'SecScottBessent', 'SecDef', 'EDSecMcMahon', 'AGPamBondi', 'SecretaryLCD', 'Sec_Noem', 'DNIGabbard', 'USTradeRep', 'SBA_Kelly', 'SecretaryBurgum'
+]
+congress = [
     'POTUS', 'VP', 'SpeakerJohnson', 'SenSchumer', 'LeaderMcConnell', 'RepJeffries', 'SecState', 'SecDef', 'SecTreasury', 'SenWarren',
     'SenSanders', 'RepAOC', 'RepMTG', 'SenRubio', 'SenCruz', 'RepNancyMace', 'SenBooker', 'SenGillibrand', 'RepJimJordan', 'RepMaxineWaters',
     'SenMittRomney', 'SenManchin', 'RepCoriBush', 'RepBoebert', 'SenHawleyPress', 'SenTimScott', 'RepMattGaetz', 'RepRashida', 'SenRickScott',
@@ -62,6 +80,27 @@ handles = [
     'SenChrisVanHollen', 'RepJuanVargas', 'SenMarkWarner', 'RepMaxineWaters', 'SenElizabethWarren', 'RepBonnieWatson', 'SenRaphaelWarnock',
     'RepJenniferWexton', 'RepSusanWild', 'SenRonWyden', 'RepLeeZeldin'
 ]
+
+# Ask user whether to include cabinet, congress, or both
+def get_handles_choice():
+    print("Who should be included in the post?")
+    print("1. Cabinet members only")
+    print("2. Congress members only")
+    print("3. Both Cabinet and Congress members")
+    while True:
+        choice = input("Enter your choice (1, 2, or 3): ").strip()
+        if choice == '1':
+            return cabinet
+        elif choice == '2':
+            return congress
+        elif choice == '3':
+            return cabinet + congress
+        else:
+            print("Invalid choice. Please enter 1, 2, or 3.")
+
+# Set handles based on user choice
+handles = get_handles_choice()
+clear_screen()  # Clear screen after user makes a choice
 
 # Function to generate a tweet with as many handles as fit under 280 chars
 def generate_tweet_with_max_handles(handles_list, start_index):
