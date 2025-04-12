@@ -1,17 +1,6 @@
 import tweepy
 import time
 import os
-import pyshorteners
-
-# Function to shorten URL using pyshorteners
-def shorten_url(long_url):
-    try:
-        s = pyshorteners.Shortener()
-        short_url = s.tinyurl.short(long_url)
-        return short_url
-    except Exception as e:
-        print(f"Failed to shorten URL: {e}")
-        return long_url  # Fallback to original URL if shortening fails
 
 # Function to clear the terminal screen with error handling
 def clear_screen():
@@ -26,12 +15,11 @@ def clear_screen():
         print(f"Failed to clear screen: {e}")
     time.sleep(0.1)  # Small delay to ensure terminal refreshes
 
-# Get URL from user and shorten it
-long_url = input("Please enter the URL: ").strip()
-link = shorten_url(long_url)
-print(f"Shortened URL: {link}")
-time.sleep(1)  # Brief pause to let user see the shortened URL
-clear_screen()  # Clear screen after displaying shortened URL
+# Get URL from user
+link = input("Please enter the URL: ").strip()
+print(f"Entered URL: {link}")
+time.sleep(1)  # Brief pause to let user see the entered URL
+clear_screen()  # Clear screen after displaying URL
 
 # Replace with your X API credentials (kept for reference, though not used here)
 consumer_key = 'H0KGcwlRnHfWDhPrFmEXOEjRI'
