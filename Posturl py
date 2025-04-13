@@ -92,19 +92,27 @@ clear_screen()  # Clear screen after user makes a choice
 
 # Function to generate a tweet with as many handles as fit under 280 chars
 def generate_tweet_with_max_handles(handles_list, start_index):
-    base = f"See : {link}"
+    base = "See : "  # Base text without the URL
+    url_length = 23  # X's shortened t.co URL length
     tweet = base
     used_handles = []
     remaining_handles = handles_list[start_index:]
 
+    # Calculate initial length with URL
+    current_length = len(base) + url_length
+
     for handle in remaining_handles:
         test_tweet = f"{tweet} @{handle}"
-        if len(test_tweet) <= 280:
+        test_length = current_length + len(f" @{handle}")
+        if test_length <= 280:
             tweet = test_tweet
+            current_length = test_length
             used_handles.append(handle)
         else:
             break
     
+    # Append the actual URL to the final tweet for display
+    tweet = f"{tweet} {link}"
     return tweet, len(used_handles)
 
 # Loop through handles, pack max handles into each tweet, pause for input
