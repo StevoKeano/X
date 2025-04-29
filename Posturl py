@@ -1,3 +1,4 @@
+
 import tweepy
 import time
 import os
@@ -94,7 +95,7 @@ clear_screen()  # Clear screen after user makes a choice
 def generate_tweet_with_max_handles(handles_list, start_index):
     base = "See : "  # Base text without the URL
     url_length = 23  # X's shortened t.co URL length
-    tweet = base
+    tweet = f"{base} {link}"
     used_handles = []
     remaining_handles = handles_list[start_index:]
 
@@ -112,7 +113,7 @@ def generate_tweet_with_max_handles(handles_list, start_index):
             break
     
     # Append the actual URL to the final tweet for display
-    tweet = f"{tweet} {link}"
+    tweet = f"{tweet}"
     return tweet, len(used_handles)
 
 # Loop through handles, pack max handles into each tweet, pause for input
